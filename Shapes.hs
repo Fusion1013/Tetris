@@ -133,20 +133,20 @@ shiftShape :: (Int,Int) -> Shape -> Shape
 shiftShape (a, b) (S shape) = S (shiftRight a (shiftDown b shape))
   where
     shiftRight amount =
-      map (replicate amount Nothing ++ )
+          map (replicate amount Nothing ++ )
     shiftDown amount shape = 
-      replicate amount (createRow (length (head shape))) ++ shape
+          replicate amount (createRow (length (head shape))) ++ shape
 
 -- ** A09
 -- | padShape adds empty sqaure below and to the right of the shape
---padShape :: (Int,Int) -> Shape -> Shape
+padShape :: (Int,Int) -> Shape -> Shape
 padShape (a, b) (S shape) = S (shiftLeft a (shiftUp b shape))
   where
     shiftLeft amount =
       map (++ replicate amount Nothing)
     shiftUp amount shape = 
       shape ++ replicate amount (createRow (length (head shape)))
-  
+
 -- ** A10
 -- | pad a shape to a given size
 padShapeTo :: (Int,Int) -> Shape -> Shape
