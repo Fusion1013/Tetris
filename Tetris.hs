@@ -52,7 +52,7 @@ place (v,s) = shiftShape v s
 
 -- | An invariant that startTetris and stepTetris should uphold
 prop_Tetris :: Tetris -> Bool
-prop_Tetris t = True -- incomplete !!!
+prop_Tetris (Tetris (v,s) w r) = prop_Shape s && wellSize == shapeSize w
 
 
 -- | Add black walls around a shape
