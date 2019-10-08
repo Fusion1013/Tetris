@@ -136,7 +136,7 @@ shiftShape (a, b) (S rows) = S (shiftRight a (shiftDown b rows))
     shiftRight amount =
           map (replicate amount Nothing ++ )
     shiftDown amount rows = 
-          replicate amount (replicate (length (head rows)) Nothing) ++ rows
+          replicate amount (createRow (length (head rows))) ++ rows
 
 -- ** A09
 -- | padShape adds empty sqaure below and to the right of the rows
@@ -146,7 +146,7 @@ padShape (a, b) (S rows) = S (shiftLeft a (shiftUp b rows))
     shiftLeft amount =
       map (++ replicate amount Nothing)
     shiftUp amount rows = 
-      rows ++ replicate amount (replicate (length (head rows)) Nothing)
+      rows ++ replicate amount (createRow (length (head rows)))
 
 -- ** A10
 -- | pad a rows to a given size
@@ -190,12 +190,9 @@ blackClashes s1 s2 = zipShapeWith clash s1 s2
 -- ** B03
 -- | Combine two shapes. The two shapes should not overlap.
 -- The resulting rows will be big enough to fit both shapes.
-combine :: Shape -> Shape -> Shape
+--combine :: Shape -> Shape -> Shape
 s1 `combine` s2 = blackClashes (pad s1 s2) (pad s2 s1)
   where 
     pad s1 s2 = padShapeTo (width s1 s2, height s1 s2) s1
     height (S s1) (S s2) = max (length s1) (length s2)
     width  (S s1) (S s2) = max (length (head s1)) (length (head s2))
-
-shape1 = allShapes !! 1
-shape2 = shiftShape (2,0) (allShapes !! 2)
